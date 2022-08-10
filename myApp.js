@@ -20,6 +20,8 @@ let arrayOfPeople = [
   {name: "Wyson", age: 18, favoriteFoods: ['Mee Goreng', 'Asam Laksa', 'Grapes']}
 ]
 
+let personName = "Mabel"
+
 const createAndSavePerson = (done) => {
   //This creates a new document. In this case the document is named mabelLee
   let mabelLee = new Person({
@@ -34,13 +36,15 @@ const createAndSavePerson = (done) => {
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
-  Person.create(arrayOfPeople, (err, data) => {
-    err ? console.error(err) : done(null, data)
+  Person.create(arrayOfPeople, (err, people) => {
+    err ? console.error(err) : done(null, people)
   })
 };
 
 const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+  Person.find({name: personName}, (err, foundPerson) => {
+    err ? console.error(err) : done(null, foundPerson)
+  })
 };
 
 const findOneByFood = (food, done) => {
