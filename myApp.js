@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 
 //Creating a person schema
 const personSchema = new Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true }, // OR name: String works too
   age: Number,
   favoriteFoods: [String]
 })
@@ -14,7 +14,16 @@ const personSchema = new Schema({
 let Person = mongoose.model("Person", personSchema);
 
 const createAndSavePerson = (done) => {
-  done(null /*, data*/);
+  //This creates a new document. In this case the document is named mabelLee
+  let mabelLee = new Person({
+    name: 'Mabel',
+    age: 26,
+    favoriteFoods: ['Nasi lemak', 'Char Keuy Teow', 'Papaya']
+  })
+  //Saves the document
+  mabelLee.save((err, data) => {
+    err ? console.error(err) : done(null, data);
+  })
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
