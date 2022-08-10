@@ -13,6 +13,13 @@ const personSchema = new Schema({
 //Creating a model called Person from personSchema
 let Person = mongoose.model("Person", personSchema);
 
+let arrayOfPeople = [
+  {name: "Mabel", age: 26, favoriteFoods: ['Nasi Lemak', 'Char Keuy Teow', 'Papaya']},
+  {name: "Vinxi", age: 24, favoriteFoods: ['Nasi Goreng', 'Chee Cheong Fun', 'Lemon']},
+  {name: "Lianne", age: 22, favoriteFoods: ['Nasi Goreng Kampung', 'Prawn Mee', 'Apple']},
+  {name: "Wyson", age: 18, favoriteFoods: ['Mee Goreng', 'Asam Laksa', 'Grapes']}
+]
+
 const createAndSavePerson = (done) => {
   //This creates a new document. In this case the document is named mabelLee
   let mabelLee = new Person({
@@ -27,7 +34,9 @@ const createAndSavePerson = (done) => {
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+  Person.create(arrayOfPeople, (err, data) => {
+    err ? console.error(err) : done(null, data)
+  })
 };
 
 const findPeopleByName = (personName, done) => {
